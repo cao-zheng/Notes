@@ -14,7 +14,13 @@ Spring是一站式框架，提供了3层的功能（web层、server层、dao层�
     spring-expression-4.2.4.RELEASE.jar
 (2)日志包
     com.springsource.org.apache.log4j-1.2.15.jar
-(3)   
+(3)引用xsd约束文件
+可参考https://www.ibm.com/developerworks/cn/xml/x-1008dubb/
+打开ecilpse-->window-->Preferences-->XML-->XML Catalog-->Add
+-->workspace或file system在xml中design设计模式中，对需要约束的标签如beans 
+右键Edit namespace -->Select From Registered Namespaces选择最基础的xsi-->
+Specity New Namespace-->Location Hint 中的Browse-->选中刚新建的约束文件
+select Xml Catalog entry -->Namespace Name可复制Location Hint 中除开本xsd文件前面内容
 ```
 
 ### applicationContext&BeanFactory
@@ -37,4 +43,20 @@ ApplicationContext context = new FileSystemXmlApplicationContext("d:/XXX/YYY/XXX
 结论：在web开发中，使用applicationContext，
 在资源匮乏的环境中使用BeanFactory
 ```
-
+ApplicationContext.xml中代码片段如下
+```
+<!-- 将User对象交给spring容器管理 -->
+<!-- Bean元素:使用该元素描述需要Spring容器管理的对象
+	name属性:给被管理的对象取名字，获取对象时根据该名字获取对象.可以重复，可以使用特殊字符.
+	class属性:被管理对象的完整类名.
+	id属性:与name属性一模一样.名称不可重复，不能使用特殊字符.
+	结论：尽量使用name属性
+	
+ -->
+	<bean name ="user" class="com.itcast.bean.User"></bean>
+```
+class类中代码片段如下
+```
+ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		User u = (User)context.getBean("user");
+```
