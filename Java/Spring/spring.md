@@ -263,7 +263,8 @@ public class Collection {
 <context:component-scan base-package="com.it.model"/>
 	
 	
-@Component("annotation")//三个注解没有任何区别，Component为最初注解无任何层区别，Service为Service层注解，Controller为web层注解，Repository为model层
+@Component("annotation")//三个注解没有任何区别，Component为最初注解无任何层区别，Service为Service层注解，
+			  Controller为web层注解，Repository为model层
 @Service("annotation")//service层
 @Controller("annotation")//action控制层
 @Repository("annotation")//model层
