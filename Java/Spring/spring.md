@@ -8,7 +8,7 @@ Spring是一站式框架，提供了3层的功能（web层、server层、dao层�
 
 > di:依赖注入。将必须的属性注入到对象当中。是为了实现ioc思想的必须条件。
 
-![spring原理图](https://note.youdao.com/yws/api/personal/file/7D8D1D75B72844259EABEC4B321132AE?method=download&shareKey=382c0389ec8739a90d344a7db74ce4f3)
+![spring原理图](https://github.com/kuangxiaojuan/Notes/blob/master/picture/spring%E5%8E%9F%E7%90%86%E5%9B%BE.png)
 
 ```
 (1)使用spring导入如上图最基础的包，如
