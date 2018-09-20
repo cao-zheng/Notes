@@ -2,7 +2,7 @@
 
 > hibernate是一款orm框架(object relation mapping对象关系映射)。hibernate属于4级：完全面向对象操作数据库。相关mybatis属于2级。dbutils属于1级
 
-[原生SQL查询]("#sql")
+[原生SQL查询](#sql)
 
 
 
