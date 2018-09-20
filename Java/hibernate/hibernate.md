@@ -2,7 +2,7 @@
 
 > hibernate是一款orm框架(object relation mapping对象关系映射)。hibernate属于4级：完全面向对象操作数据库。相关mybatis属于2级。dbutils属于1级
 
-[原生SQL查询](#原生SQL查询)
+[原生SQL查询](#sql)
 
 
 
@@ -86,9 +86,12 @@ hibernate-release-5.0.7.Final.zip\hibernate-release-5.0.7.Final\project\etc\hibe
 
 		<!--    自动     表结构          导出
 			## auto schema export 
-			#hibernate.hbm2ddl.auto create  自动建表，每次框架运行都会创建新的表，以前的表会被覆盖。表数据丢失（不建议开发环境和测试使用）
-			#hibernate.hbm2ddl.auto create-drop 自动建表，每次框架运行结束都会将所有表删除。(开发环境中测试使用)
-			#hibernate.hbm2ddl.auto update (推荐使用)自动生成表，如果已经存在不会再生成，如果表有变动，自动更新(不会删除任何数据)
+			#hibernate.hbm2ddl.auto create  自动建表，每次框架运行都会创建新的表，以前的表会被覆盖。
+			表数据丢失（不建议开发环境和测试使用）
+			#hibernate.hbm2ddl.auto create-drop 自动建表，每次框架运行结束都会将所有表删除。
+			(开发环境中测试使用)
+			#hibernate.hbm2ddl.auto update (推荐使用)自动生成表，如果已经存在不会再生成，如果表有变动，
+			自动更新(不会删除任何数据)
 			#hibernate.hbm2ddl.auto validate 校验，不自动生成表，每次启动会校验数据库中表是否正确。
 		 -->
 
@@ -248,7 +251,8 @@ public void fun4(){
 	Customer c2 = session.get(Customer.class,"1");//不会打印sql，会先从session缓存中取数据
 
 	//4、提交事务、关闭资源
-	tx.commit();// hibernate对比缓存中的对象和快照，如果有变化就会同步到数据库。 以上过程中快照为空(没有从数据库取，无快照)，缓存和快照不一致,输出update
+	tx.commit();// hibernate对比缓存中的对象和快照，如果有变化就会同步到数据库。 
+	//以上过程中快照为空(没有从数据库取，无快照)，缓存和快照不一致,输出update
 	session.close();//游离|托管状态 ，有id， 没有关联
 
 	
@@ -300,7 +304,8 @@ tx.commit();
 	//如果放在分页程序里边 ，
 	//setFirstResult的值应该是 (当前页面-1)X每页条数，表示从第几条记录开始，
 	//setMaxResults 就是每页的条数了，是查询的条数，和记录的总条数不一样，set之前的list.size()才是总条数
-	List<Customer> customerList= session.createQuery("from com.it.model.Customer customer where customer.cust_id=:cust_id")
+	List<Customer> customerList= session.createQuery("from com.it.model.Customer customer "
+	+"where customer.cust_id=:cust_id")
 	.setParameter("cust_id", "165eb7efffbcc927b1d225d450f8cd1f")
 	.setFirstResult(0).setMaxResults(1)
 	.list();
@@ -341,7 +346,7 @@ Hibernate自创的无语面向对象查询
 ```
 
 ## 原生SQL查询
-<span id="原生SQL查询"></span>
+<span id="sql"></span>
 
 ```
 Session session = HibernateUtils.opensession();
@@ -364,6 +369,7 @@ List<Customer> customerList1 =session.createSQLQuery("select cust_id cust_id,cus
 		.addScalar("cust_moblie")
 		.setResultTransformer(Transformers.aliasToBean(Customer.class))
 		.setParameter(0, "165eb7efffbcc927b1d225d450f8cd1f").list();
-//Hibernate就会自动将查出来的三列内容组装到VO对象中去,addScalar方法就是将实体和结果对应的,可提高性能,名称都需要重新定义为小写的(需set方法属性一致),在Oracle中查出来的列都默认为大写的;
+//Hibernate就会自动将查出来的三列内容组装到VO对象中去,addScalar方法就是将实体和结果对应的,
+//可提高性能,名称都需要重新定义为小写的(需set方法属性一致),在Oracle中查出来的列都默认为大写的;
 System.out.println(customerList1.get(0));
 ```
