@@ -2,7 +2,7 @@
 
 > hibernate是一款orm框架(object relation mapping对象关系映射)。hibernate属于4级：完全面向对象操作数据库。相关mybatis属于2级。dbutils属于1级
 
-[原生SQL查询](#sql)
+[原生SQL查询]("#sql")
 
 
 
@@ -68,8 +68,8 @@ hibernate-release-5.0.7.Final.zip\hibernate-release-5.0.7.Final\project\etc\hibe
 			<!-- 数据库方言 -->
 			<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 			<!-- 数据库方言 
-				不同数据库中，sql语句略有区别，制定方言可以让hibernate框架在生成sql语句时，针对数据库的方言进行生成
-				所有的sql99标准：
+				不同数据库中，sql语句略有区别，制定方言可以让hibernate框架在生成sql语句时，
+				针对数据库的方言进行生成所有的sql99标准：
 				DDL 定义语言  库表的增删改查
 				DCL 控制语言  事务 权限
 				DML 操作语言  增删改查
@@ -351,7 +351,8 @@ Hibernate自创的无语面向对象查询
 ```
 Session session = HibernateUtils.opensession();
 @SuppressWarnings("unchecked")
-List<Customer> customerList = session.createSQLQuery("select * from cust_customer").addEntity(Customer.class).list();
+List<Customer> customerList = session.createSQLQuery("select * from cust_customer")
+.addEntity(Customer.class).list();
 System.out.println(customerList.get(0));
 //addEntity只适用于存在Customer实体的，如果customer是个视图无对应实体，只是一个JavaBean,可通过一下方法
 @SuppressWarnings("unchecked")
